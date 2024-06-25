@@ -27,10 +27,9 @@ def fetch_spacex_last_launch() -> None:
 
     response = response.json()
     for number, pictures in enumerate(response["links"]["flickr"]["original"]):
-        download_picture(pictures, f"spacex{number}.jpg")
+        download_picture(pictures, f"spacex{number+1}.jpg")
 
 
 if __name__ == "__main__":
     cerate_folder_for_images()
     fetch_spacex_last_launch()
-s

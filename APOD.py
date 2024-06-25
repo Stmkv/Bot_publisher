@@ -18,12 +18,14 @@ def get_photos_from_apod(count: int) -> str:
         if get_file_extension(url_photo) == ".jpg":
             photos.append(url_photo)
     for number, url in enumerate(photos):
-        download_picture(url, f"nasa_apod{number}.jpg")
+        download_picture(url, f"nasa_apod{number+1}.jpg")
 
 
 def get_file_extension(url: str) -> str:
-    parse = urllib.parse.urlsplit(url) # распарсивает по элементам
-    return os.path.splitext(parse[2])[1] # разделяет на формат, выбирает его b возвращает
+    parse = urllib.parse.urlsplit(url)
+    return os.path.splitext(parse[2])[
+        1
+    ]
 
 
 def download_picture(
@@ -37,5 +39,6 @@ def download_picture(
         file.write(response.content)
     shutil.move(picture_path, "images")  # Перемещение фотографии в папку images
 
+
 if __name__ == "__main__":
-    get_photos_from_nasa(5)
+    get_photos_from_apod(5)
