@@ -21,11 +21,11 @@ def create_parser():
 
 def auto_public_photo(bot, chat_id, img_list, count=1) -> None:
     for i in range(count):
-        if not img_list:  # Если список пуст, перемешиваем его заново
+        if not img_list:
             img_list.extend(os.listdir("images/"))
             random.shuffle(img_list)
 
-        photo_path = f"images/{img_list.pop()}"  # Получаем и удаляем последний элемент списка
+        photo_path = f"images/{img_list.pop()}"
         with open(photo_path, 'rb') as photo:
             bot.send_photo(chat_id, photo=photo)
 
@@ -36,7 +36,6 @@ if __name__ == "__main__":
     telegram_bot_token = os.environ["TELEGRAM_BOT_TOKEN"]
     telegram_chat_id = os.environ["TELEGRAM_CHAT_ID"]
     publication_frequency = os.environ["PUBLICATION_FREQUENCY"]
-    photos_per_cycle = os.environ.get("PHOTOS_PER_CYCLE", 1)  # По умолчанию 1 фото
 
     bot = telegram.Bot(token=telegram_bot_token)
     img_list = os.listdir("images/")

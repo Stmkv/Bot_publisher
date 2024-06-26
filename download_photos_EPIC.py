@@ -1,23 +1,32 @@
 import requests
 import datetime
 import argparse
+import os
+from dotenv import load_dotenv
 from create_folder import download_picture
 
 
 def create_parser():
     parser = argparse.ArgumentParser(
-        description="Скачивает заданное кол-во фотографий."
+        description="Скачивает выбранное кол-во фотографий."
     )
     parser.add_argument(
-        "count",
-        help="Введите количество фотографий, которые\
+        "img",
+        nargs="?",
+        help="Введите количество фотографий, которое\
                         нужно скачать",
+        default=None
     )
     args = parser.parse_args()
-    return args.count
+    return args.img
 
 
-def download_photos_nasa_epic(count=5):
+def download_photos_nasa_epic(token, count=5):
+    if count == None:
+        count = 5
+    else:
+        count = int(count)
+
     photos_key = []
     photos_date = []
     response = requests.get(
@@ -36,11 +45,11 @@ def download_photos_nasa_epic(count=5):
 
     for i in range(0, count):
         url = f"https://api.nasa.gov/EPIC/archive/natural/{photos_date[i]}/png/{photos_key[i]}.png"
-        download_picture(url, picture_path=f"nasa_epic{i+1}.jpg", api_key = "uBdF2I4UKAoqADW607qz73gjPAerS8a8f9dyjVuR")
-
-
+        download_picture(url, picture_path=f"nasa_epic{i + 1}.jpg", api_key=token)
 
 
 if __name__ == "__main__":
-    count = int(create_parser())
-    download_photos_nasa_epic(count=count)
+    count = create_parser()
+    load_dotenv()
+    nasa_token = os.environ["NASA_API_KEY"]
+    download_photos_nasa_epic(nasa_token, count=count)

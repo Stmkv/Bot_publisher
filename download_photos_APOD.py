@@ -16,7 +16,7 @@ def create_parser():
     return args.count
 
 
-def get_photos_from_apod(count: int, token: str) -> None:
+def get_photos_from_apod(token, count=5):
     photos = []
     params = {
         "count": count,
@@ -41,7 +41,7 @@ def get_file_extension(url: str) -> str:
 
 
 if __name__ == "__main__":
-    count = create_parser()
+    quantity = create_parser()
     load_dotenv()
     nasa_token = os.environ["NASA_API_KEY"]
-    get_photos_from_apod(count, nasa_token)
+    get_photos_from_apod(nasa_token, count=quantity)
