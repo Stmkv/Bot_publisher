@@ -6,9 +6,14 @@ from create_folder import download_picture
 
 def create_parser():
     parser = argparse.ArgumentParser(
-        description='Скачивает фотографии с запуска'
+        description="Скачивает выбранное кол-во фотографий."
     )
-    parser.add_argument('id', help='Введите id запуска')
+    parser.add_argument(
+        "id",
+        nargs="?",
+        help="Введите id запуска",
+        default=None
+    )
     args = parser.parse_args()
     return args.id
 
@@ -22,6 +27,9 @@ def fetch_spacex_last_launch(launch_id="latest") -> None:
 
 
 if __name__ == "__main__":
-    id = create_parser()
     cerate_folder_for_images()
-    fetch_spacex_last_launch(launch_id=id)
+    id = create_parser()
+    if id == None:
+        fetch_spacex_last_launch()
+    else:
+        fetch_spacex_last_launch(launch_id=id)
