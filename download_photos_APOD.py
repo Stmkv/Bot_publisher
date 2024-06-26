@@ -30,7 +30,7 @@ def get_photos_from_apod(count: int, token: str) -> None:
         if get_file_extension(url_photo) == ".jpg":
             photos.append(url_photo)
     for number, url in enumerate(photos):
-        download_picture(url, picture_path=f"nasa_apod{number+1}.jpg")
+        download_picture(url, picture_path=f"nasa_apod{number + 1}.jpg")
 
 
 def get_file_extension(url: str) -> str:
@@ -45,5 +45,3 @@ if __name__ == "__main__":
     load_dotenv()
     nasa_token = os.environ["NASA_API_KEY"]
     get_photos_from_apod(count, nasa_token)
-
-
