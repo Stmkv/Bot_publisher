@@ -6,6 +6,7 @@ import argparse
 from dotenv import load_dotenv
 
 
+
 def create_parser():
     parser = argparse.ArgumentParser(
         description="Публикует заданное кол-во фотографий за раз."

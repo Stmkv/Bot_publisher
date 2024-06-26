@@ -4,6 +4,7 @@ import argparse
 import os
 from dotenv import load_dotenv
 from create_folder import download_picture
+from create_folder import cerate_folder_for_images
 
 
 def create_parser():
@@ -49,6 +50,7 @@ def download_photos_nasa_epic(token, count=5):
 
 
 if __name__ == "__main__":
+    cerate_folder_for_images()
     count = create_parser()
     load_dotenv()
     nasa_token = os.environ["NASA_API_KEY"]

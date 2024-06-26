@@ -3,6 +3,7 @@ import os
 import urllib
 import argparse
 from create_folder import download_picture
+from create_folder import cerate_folder_for_images
 from dotenv import load_dotenv
 
 
@@ -41,6 +42,7 @@ def get_file_extension(url: str) -> str:
 
 
 if __name__ == "__main__":
+    cerate_folder_for_images()
     quantity = create_parser()
     load_dotenv()
     nasa_token = os.environ["NASA_API_KEY"]
