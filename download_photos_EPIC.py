@@ -3,8 +3,8 @@ import datetime
 import argparse
 import os
 from dotenv import load_dotenv
-from create_folder import download_picture
-from create_folder import cerate_folder_for_images
+from create_folder_images import download_picture
+from create_folder_images import cerate_folder_for_images
 
 
 def get_path_photo():
@@ -35,18 +35,18 @@ def download_photos_nasa_epic(token, count=5):
     )
     response.raise_for_status()
     response = response.json()
-    for i in response:
-        photos_key.append(i["image"])
-        photos_date.append(i["date"])
+    for url in response:
+        photos_key.append(url["image"])
+        photos_date.append(url["date"])
 
-    for i, w in enumerate(photos_date):
-        photos_date[i] = datetime.datetime.strptime(w, "%Y-%m-%d %H:%M:%S").strftime(
+    for date_photo, number_photo in enumerate(photos_date):
+        photos_date[date_photo] = datetime.datetime.strptime(number_photo, "%Y-%m-%d %H:%M:%S").strftime(
             "%Y/%m/%d"
         )
 
-    for i in range(0, count):
-        url = f"https://api.nasa.gov/EPIC/archive/natural/{photos_date[i]}/png/{photos_key[i]}.png"
-        download_picture(url, picture_path=f"nasa_epic{i + 1}.jpg", api_key=token)
+    for number_photo in range(0, count):
+        url = f"https://api.nasa.gov/EPIC/archive/natural/{photos_date[number_photo]}/png/{photos_key[number_photo]}.png"
+        download_picture(url, picture_path=f"nasa_epic{number_photo + 1}.jpg", api_key=token)
 
 
 if __name__ == "__main__":

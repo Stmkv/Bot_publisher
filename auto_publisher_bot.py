@@ -6,7 +6,6 @@ import argparse
 from dotenv import load_dotenv
 
 
-
 def get_number_photos():
     parser = argparse.ArgumentParser(
         description="Публикует заданное кол-во фотографий за раз."
@@ -15,13 +14,14 @@ def get_number_photos():
         "count",
         help="Введите количество фотографий, которые\
                         нужно опубликовать",
-    )
+        default=None,
+        nargs="?")
     args = parser.parse_args()
     return args.count
 
 
 def auto_public_photo(bot, chat_id, img_list, count=1) -> None:
-    for i in range(count):
+    for number_photo in range(count):
         if not img_list:
             img_list.extend(os.listdir("images/"))
             random.shuffle(img_list)
@@ -39,9 +39,12 @@ if __name__ == "__main__":
     publication_frequency = os.environ["PUBLICATION_FREQUENCY"]
 
     bot = telegram.Bot(token=telegram_bot_token)
-    img_list = os.listdir("images/")
-    random.shuffle(img_list)
+    images = os.listdir("images/")
+    random.shuffle(images)
 
     while True:
-        auto_public_photo(bot, telegram_chat_id, img_list, count=count_photo_for_publication)
+        if count_photo_for_publication == None:
+            auto_public_photo(bot, telegram_chat_id, images)
+        else:
+            auto_public_photo(bot, telegram_chat_id, images, count=count_photo_for_publication)
         time.sleep(float(publication_frequency))

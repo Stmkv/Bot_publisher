@@ -4,8 +4,7 @@ import shutil
 
 
 def cerate_folder_for_images() -> None:
-    if not os.path.exists("images"):
-        os.makedirs("images")
+    os.makedirs("images", exist_ok=True)
 
 
 def download_picture(

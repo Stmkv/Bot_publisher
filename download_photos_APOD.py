@@ -2,8 +2,8 @@ import requests
 import os
 import urllib
 import argparse
-from create_folder import download_picture
-from create_folder import cerate_folder_for_images
+from create_folder_images import download_picture
+from create_folder_images import cerate_folder_for_images
 from dotenv import load_dotenv
 
 
@@ -11,8 +11,11 @@ def get_number_photos():
     parser = argparse.ArgumentParser(
         description='Скачивает заданное кол-во фотографий дня'
     )
-    parser.add_argument('count', help='Введите количество фотографий, которые\
-                        нужно скачать')
+    parser.add_argument('count',
+                        help='Введите количество фотографий, которые\
+                        нужно скачать',
+                        default=None,
+                        nargs="?")
     args = parser.parse_args()
     return args.count
 
@@ -26,8 +29,8 @@ def get_photos_from_apod(token, count=5):
     response = requests.get("https://api.nasa.gov/planetary/apod", params=params)
     response.raise_for_status()
     response = response.json()
-    for i in response:
-        url_photo = i["url"]
+    for url in response:
+        url_photo = url["url"]
         if get_file_extension(url_photo) == ".jpg":
             photos.append(url_photo)
     for number, url in enumerate(photos):
@@ -46,4 +49,8 @@ if __name__ == "__main__":
     quantity = get_number_photos()
     load_dotenv()
     nasa_token = os.environ["NASA_API_KEY"]
-    get_photos_from_apod(nasa_token, count=quantity)
+
+    if quantity == None:
+        get_photos_from_apod(nasa_token)
+    else:
+        get_photos_from_apod(nasa_token, count=quantity)

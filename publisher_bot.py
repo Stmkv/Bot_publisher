@@ -32,8 +32,8 @@ def public_photo(chat_id, img_list, img = None):
 if __name__ == "__main__":
     load_dotenv()
     img = get_path_photo()
-    img_list = os.listdir(r"images/")
+    imges = os.listdir(r"images/")
     telegram_bot_token = os.environ["TELEGRAM_BOT_TOKEN"]
     telegram_chat_id = os.environ["TELEGRAM_CHAT_ID"]
     bot = telegram.Bot(token=telegram_bot_token)
-    public_photo(telegram_chat_id, img_list, img)
+    public_photo(telegram_chat_id, imges, img)

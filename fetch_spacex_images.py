@@ -1,7 +1,7 @@
 import argparse
 import requests
-from create_folder import cerate_folder_for_images
-from create_folder import download_picture
+from create_folder_images import cerate_folder_for_images
+from create_folder_images import download_picture
 
 
 def get_number_photos():
