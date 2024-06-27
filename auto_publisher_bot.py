@@ -14,7 +14,7 @@ def get_number_photos():
         "count",
         help="Введите количество фотографий, которые\
                         нужно опубликовать",
-        default=None,
+        default=1,
         nargs="?")
     args = parser.parse_args()
     return args.count
@@ -43,8 +43,5 @@ if __name__ == "__main__":
     random.shuffle(images)
 
     while True:
-        if count_photo_for_publication == None:
-            auto_public_photo(bot, telegram_chat_id, images)
-        else:
-            auto_public_photo(bot, telegram_chat_id, images, count=count_photo_for_publication)
+        auto_public_photo(bot, telegram_chat_id, images, count=count_photo_for_publication)
         time.sleep(float(publication_frequency))

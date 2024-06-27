@@ -4,7 +4,6 @@ import argparse
 import os
 from dotenv import load_dotenv
 from create_folder_images import download_picture
-from create_folder_images import cerate_folder_for_images
 
 
 def get_path_photo():
@@ -12,22 +11,17 @@ def get_path_photo():
         description="Скачивает выбранное кол-во фотографий."
     )
     parser.add_argument(
-        "img",
+        "count",
         nargs="?",
         help="Введите количество фотографий, которое\
                         нужно скачать",
-        default=None
+        default=5
     )
     args = parser.parse_args()
-    return args.img
+    return args.count
 
 
-def download_photos_nasa_epic(token, count=5):
-    if count == None:
-        count = 5
-    else:
-        count = int(count)
-
+def download_photos_nasa_epic(token, number_photos=5):
     photos_key = []
     photos_date = []
     response = requests.get(
@@ -44,14 +38,13 @@ def download_photos_nasa_epic(token, count=5):
             "%Y/%m/%d"
         )
 
-    for number_photo in range(0, count):
+    for number_photo in range(0, number_photos):
         url = f"https://api.nasa.gov/EPIC/archive/natural/{photos_date[number_photo]}/png/{photos_key[number_photo]}.png"
         download_picture(url, picture_path=f"nasa_epic{number_photo + 1}.jpg", api_key=token)
 
 
 if __name__ == "__main__":
-    cerate_folder_for_images()
-    count = get_path_photo()
+    count = int(get_path_photo())
     load_dotenv()
     nasa_token = os.environ["NASA_API_KEY"]
-    download_photos_nasa_epic(nasa_token, count=count)
+    download_photos_nasa_epic(nasa_token, number_photos=count)

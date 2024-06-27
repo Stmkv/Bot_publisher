@@ -3,7 +3,6 @@ import os
 import urllib
 import argparse
 from create_folder_images import download_picture
-from create_folder_images import cerate_folder_for_images
 from dotenv import load_dotenv
 
 
@@ -14,7 +13,7 @@ def get_number_photos():
     parser.add_argument('count',
                         help='Введите количество фотографий, которые\
                         нужно скачать',
-                        default=None,
+                        default=5,
                         nargs="?")
     args = parser.parse_args()
     return args.count
@@ -33,24 +32,19 @@ def get_photos_from_apod(token, count=5):
         url_photo = url["url"]
         if get_file_extension(url_photo) == ".jpg":
             photos.append(url_photo)
-    for number, url in enumerate(photos):
-        download_picture(url, picture_path=f"nasa_apod{number + 1}.jpg")
+    for number, url in enumerate(photos, start=1):
+        download_picture(url, picture_path=f"nasa_apod{number}.jpg")
 
 
 def get_file_extension(url: str) -> str:
     parse = urllib.parse.urlsplit(url)
-    return os.path.splitext(parse[2])[
-        1
-    ]
+    patch = parse[2]
+    extension = os.path.splitext(patch)[1]
+    return extension
 
 
 if __name__ == "__main__":
-    cerate_folder_for_images()
     quantity = get_number_photos()
     load_dotenv()
     nasa_token = os.environ["NASA_API_KEY"]
-
-    if quantity == None:
-        get_photos_from_apod(nasa_token)
-    else:
-        get_photos_from_apod(nasa_token, count=quantity)
+    get_photos_from_apod(nasa_token, count=quantity)

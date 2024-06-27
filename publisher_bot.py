@@ -21,12 +21,14 @@ def get_path_photo():
 
 
 def public_photo(chat_id, img_list, img = None):
-    if img == None:
+    if img is None:
         photo_path = f"images/{random.choice(img_list)}"
-        bot.send_photo(chat_id, photo=open(photo_path, 'rb'))
+        with open(photo_path, 'rb') as photo:
+            bot.send_photo(chat_id, photo)
     else:
         photo_path = f"images/{img}"
-        bot.send_photo(chat_id, photo=open(photo_path, 'rb'))
+        with open(photo_path, 'rb') as photo:
+            bot.send_photo(chat_id, photo)
 
 
 if __name__ == "__main__":

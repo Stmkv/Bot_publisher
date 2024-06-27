@@ -3,15 +3,12 @@ import requests
 import shutil
 
 
-def cerate_folder_for_images() -> None:
-    os.makedirs("images", exist_ok=True)
-
-
 def download_picture(
     url: str,
     picture_path: str,
     api_key=''
 ) -> None:
+    os.makedirs("images", exist_ok=True)
     params = {"api_key": api_key}
     response = requests.get(url, params=params)
     response.raise_for_status()
