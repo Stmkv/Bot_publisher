@@ -7,7 +7,7 @@ from create_folder import cerate_folder_for_images
 from dotenv import load_dotenv
 
 
-def create_parser():
+def get_number_photos():
     parser = argparse.ArgumentParser(
         description='Скачивает заданное кол-во фотографий дня'
     )
@@ -43,7 +43,7 @@ def get_file_extension(url: str) -> str:
 
 if __name__ == "__main__":
     cerate_folder_for_images()
-    quantity = create_parser()
+    quantity = get_number_photos()
     load_dotenv()
     nasa_token = os.environ["NASA_API_KEY"]
     get_photos_from_apod(nasa_token, count=quantity)

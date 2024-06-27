@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 
 
-def create_parser():
+def get_number_photos():
     parser = argparse.ArgumentParser(
         description="Публикует заданное кол-во фотографий за раз."
     )
@@ -32,7 +32,7 @@ def auto_public_photo(bot, chat_id, img_list, count=1) -> None:
 
 
 if __name__ == "__main__":
-    count_photo_for_publication = int(create_parser())
+    count_photo_for_publication = int(get_number_photos())
     load_dotenv()
     telegram_bot_token = os.environ["TELEGRAM_BOT_TOKEN"]
     telegram_chat_id = os.environ["TELEGRAM_CHAT_ID"]

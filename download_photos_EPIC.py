@@ -7,7 +7,7 @@ from create_folder import download_picture
 from create_folder import cerate_folder_for_images
 
 
-def create_parser():
+def get_path_photo():
     parser = argparse.ArgumentParser(
         description="Скачивает выбранное кол-во фотографий."
     )
@@ -51,7 +51,7 @@ def download_photos_nasa_epic(token, count=5):
 
 if __name__ == "__main__":
     cerate_folder_for_images()
-    count = create_parser()
+    count = get_path_photo()
     load_dotenv()
     nasa_token = os.environ["NASA_API_KEY"]
     download_photos_nasa_epic(nasa_token, count=count)

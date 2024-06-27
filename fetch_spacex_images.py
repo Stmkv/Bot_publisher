@@ -4,7 +4,7 @@ from create_folder import cerate_folder_for_images
 from create_folder import download_picture
 
 
-def create_parser():
+def get_number_photos():
     parser = argparse.ArgumentParser(
         description="Скачивает выбранное кол-во фотографий."
     )
@@ -28,7 +28,7 @@ def fetch_spacex_last_launch(launch_id="latest") -> None:
 
 if __name__ == "__main__":
     cerate_folder_for_images()
-    id = create_parser()
+    id = get_number_photos()
     if id == None:
         fetch_spacex_last_launch()
     else:

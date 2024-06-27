@@ -5,7 +5,7 @@ import argparse
 from dotenv import load_dotenv
 
 
-def create_parser():
+def get_path_photo():
     parser = argparse.ArgumentParser(
         description="Публикует выбранную фотографию."
     )
@@ -31,7 +31,7 @@ def public_photo(chat_id, img_list, img = None):
 
 if __name__ == "__main__":
     load_dotenv()
-    img = create_parser()
+    img = get_path_photo()
     img_list = os.listdir(r"images/")
     telegram_bot_token = os.environ["TELEGRAM_BOT_TOKEN"]
     telegram_chat_id = os.environ["TELEGRAM_CHAT_ID"]
