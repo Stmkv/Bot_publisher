@@ -1,6 +1,5 @@
 import os
 import requests
-import shutil
 
 
 def download_picture(
@@ -13,6 +12,5 @@ def download_picture(
     response = requests.get(url, params=params)
     response.raise_for_status()
 
-    with open(picture_path, "wb") as file:
+    with open(rf'images\{picture_path}', "wb") as file:
         file.write(response.content)
-    shutil.move(picture_path, "images")
