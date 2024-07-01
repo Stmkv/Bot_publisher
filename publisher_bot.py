@@ -20,13 +20,15 @@ def get_path_photo():
     return args.img
 
 
-def public_photo(chat_id, img_list, img = None):
+def public_photo(chat_id, img):
+    photo_path = f"images/{img}"
+    with open(photo_path, 'rb') as photo:
+        bot.send_photo(chat_id, photo)
+
+
+def public_random_photo(chat_id, img_list):
     if img is None:
         photo_path = f"images/{random.choice(img_list)}"
-        with open(photo_path, 'rb') as photo:
-            bot.send_photo(chat_id, photo)
-    else:
-        photo_path = f"images/{img}"
         with open(photo_path, 'rb') as photo:
             bot.send_photo(chat_id, photo)
 
@@ -38,4 +40,8 @@ if __name__ == "__main__":
     telegram_bot_token = os.environ["TELEGRAM_BOT_TOKEN"]
     telegram_chat_id = os.environ["TELEGRAM_CHAT_ID"]
     bot = telegram.Bot(token=telegram_bot_token)
-    public_photo(telegram_chat_id, imges, img)
+
+    if img is None:
+        public_random_photo(telegram_chat_id, imges)
+    else:
+        public_photo(telegram_chat_id, img)
