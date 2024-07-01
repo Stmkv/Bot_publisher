@@ -1,9 +1,9 @@
 import argparse
 import requests
-from create_folder_images import download_picture
+from upload_picture import download_picture
 
 
-def get_number_photos():
+def get_launch_id():
     parser = argparse.ArgumentParser(
         description="Скачивает выбранное кол-во фотографий."
     )
@@ -26,6 +26,5 @@ def fetch_spacex_last_launch(launch_id="latest") -> None:
 
 
 if __name__ == "__main__":
-    id = get_number_photos()
-    print(id)
+    id = get_launch_id()
     fetch_spacex_last_launch(launch_id=id)

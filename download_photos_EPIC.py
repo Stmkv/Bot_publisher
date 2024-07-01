@@ -3,10 +3,10 @@ import datetime
 import argparse
 import os
 from dotenv import load_dotenv
-from create_folder_images import download_picture
+from upload_picture import download_picture
 
 
-def get_path_photo():
+def get_number_photos():
     parser = argparse.ArgumentParser(
         description="Скачивает выбранное кол-во фотографий."
     )
@@ -15,6 +15,7 @@ def get_path_photo():
         nargs="?",
         help="Введите количество фотографий, которое\
                         нужно скачать",
+        type=int,
         default=5
     )
     args = parser.parse_args()
@@ -44,7 +45,7 @@ def download_photos_nasa_epic(token, number_photos=5):
 
 
 if __name__ == "__main__":
-    count = int(get_path_photo())
+    count = get_number_photos()
     load_dotenv()
     nasa_token = os.environ["NASA_API_KEY"]
     download_photos_nasa_epic(nasa_token, number_photos=count)

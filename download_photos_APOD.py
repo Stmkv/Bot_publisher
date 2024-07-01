@@ -2,7 +2,7 @@ import requests
 import os
 import urllib
 import argparse
-from create_folder_images import download_picture
+from upload_picture import download_picture
 from dotenv import load_dotenv
 
 
@@ -14,6 +14,7 @@ def get_number_photos():
                         help='Введите количество фотографий, которые\
                         нужно скачать',
                         default=5,
+                        type=int,
                         nargs="?")
     args = parser.parse_args()
     return args.count
