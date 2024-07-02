@@ -26,8 +26,8 @@ def public_photo(chat_id, img):
         bot.send_photo(chat_id, photo)
 
 
-def public_random_photo(chat_id, img_list):
-    photo_path = f"images/{random.choice(img_list)}"
+def public_random_photo(chat_id, images):
+    photo_path = f"images/{random.choice(images)}"
     with open(photo_path, 'rb') as photo:
         bot.send_photo(chat_id, photo)
 
