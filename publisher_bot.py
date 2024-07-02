@@ -27,10 +27,9 @@ def public_photo(chat_id, img):
 
 
 def public_random_photo(chat_id, img_list):
-    if img is None:
-        photo_path = f"images/{random.choice(img_list)}"
-        with open(photo_path, 'rb') as photo:
-            bot.send_photo(chat_id, photo)
+    photo_path = f"images/{random.choice(img_list)}"
+    with open(photo_path, 'rb') as photo:
+        bot.send_photo(chat_id, photo)
 
 
 if __name__ == "__main__":
