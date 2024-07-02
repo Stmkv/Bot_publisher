@@ -40,7 +40,7 @@ if __name__ == "__main__":
     telegram_chat_id = os.environ["TELEGRAM_CHAT_ID"]
     bot = telegram.Bot(token=telegram_bot_token)
 
-    if img is None:
-        public_random_photo(telegram_chat_id, images)
-    else:
+    if img:
         public_photo(telegram_chat_id, img)
+    else:
+        public_random_photo(telegram_chat_id, images)
